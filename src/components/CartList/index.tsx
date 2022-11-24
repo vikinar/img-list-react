@@ -28,13 +28,13 @@ const CartList: React.FC = () => {
             setItems((prevState: Item[]) => [...new Set([...prevState, ...data])])
         } catch (error) {
             console.log(error)
+        }  finally {
+            setLoading(false)
         }
     }
 
     useEffectOnce( () => {
-        const abortController = new AbortController();
-        getItems().finally(() => setLoading(false))
-        return () => abortController.abort()
+        getItems();
     })
 
     return <section className="container">
