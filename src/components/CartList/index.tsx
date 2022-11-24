@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {createContext, Dispatch, SetStateAction, useState} from "react";
 import {useEffectOnce} from "../../hooks/useEffectOnce";
 import Cart from "../Cart";
 import Search from "../Search";
@@ -11,15 +11,20 @@ export interface Item {
     id: string
 }
 
+interface Ctx {
+    value: string
+    setValue: Dispatch<SetStateAction<string>>
+}
+
+export const SearchContext = createContext<Ctx>({
+    value: '', setValue: () => {}
+} as Ctx);
+
 const CartList: React.FC = () => {
     const [items, setItems] = useState<Item[]>([])
     const [isLoading, setLoading] = useState<boolean>(true)
-    const [value, setValue] = useState<string>('')
+    const [value, setValue] = useState('')
     const _limit = 7
-
-    const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
-    }
 
     const getItems = async (start = 0, limit = _limit) => {
         try {
@@ -37,15 +42,19 @@ const CartList: React.FC = () => {
         getItems();
     })
 
-    return <section className="container">
-        <Search value={value} changeValue={changeValue} />
-        <div className={styles.cartList}>
-            {!isLoading ? items.map((item: Item) =>
-                <Cart key={item.id} item = {item} value = {value}/>
-            ) : <span>Loading...</span>}
-        </div>
-        <button className={styles.btn} onClick={() => getItems(items.length, _limit)}>Next</button>
-    </section>
+    return(
+        <SearchContext.Provider value={{value, setValue}}>
+            <section className="container">
+                <Search />
+                <div className={styles.cartList}>
+                    {!isLoading ? items.map((item: Item) =>
+                        <Cart key={item.id} item = {item} />
+                    ) : <span>Loading...</span>}
+                </div>
+                <button className={styles.btn} onClick={() => getItems(items.length, _limit)}>Next</button>
+            </section>
+        </SearchContext.Provider>
+    )
 }
 
 export default CartList;

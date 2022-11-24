@@ -1,14 +1,15 @@
 import styles from './cart.module.scss'
 import {Item} from "../CartList";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {SearchContext} from "../CartList";
 
 interface PropTypes {
     item: Item
-    value: string
 }
 
-const Cart:React.FC<PropTypes> = ({item, value}) => {
+const Cart:React.FC<PropTypes> = ({item}) => {
     const [found, setFound] = useState<boolean>(false)
+    const {value} = useContext(SearchContext)
 
     useEffect(() => {
         setFound(() => item.title.includes(value) && value !== '')
