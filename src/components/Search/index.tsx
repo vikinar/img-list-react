@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from "react";
+import React, {useContext} from "react";
 import styles from "./search.module.scss"
 import {SearchContext} from "../CartList";
 
