@@ -1,0 +1,19 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  width: 100%;
+
+  label{
+    font-weight: bold;
+    font-size: 2.4rem;
+  }
+
+  input{
+    font-size: 2rem;
+    border: .1rem solid #ddd;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+}

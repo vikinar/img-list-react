@@ -1,0 +1,23 @@
+.cart{
+  border: 1px solid #ddd;
+  border-radius: 1.5rem;
+
+  &_found{
+    background: lightcyan;
+    color: darkblue;
+    font-weight: bold;
+  }
+
+  img{
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  &_description{
+    padding: 2rem 1rem;
+    p{
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+    }
+  }
+}
